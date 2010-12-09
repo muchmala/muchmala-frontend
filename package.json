@@ -1,0 +1,38 @@
+{ "name" : "muchmala-frontend"
+, "version" : "0.0.1"
+, "description" : "Frontend server for Muchmala"
+, "contributors" :
+  [ "Serge Borbit <serge.borbit@gmail.com>"
+  , "Taras Kunch <taras.kunch@gmail.com>"
+  , "George Miroshnykov <george.miroshnykov@gmail.com>"
+  ]
+, "repositories":
+  { "type" : "git"
+  , "url" : "https://github.com/muchmala/muchmala-frontend.git"
+  }
+, "dependencies" :
+  { "opts" : "~1"
+  , "ejs" : "~0"
+  , "knox" : "~0"
+  , "flow" : "~0"
+  , "underscore" : "~1"
+
+  , "connect" : "~1"
+  , "express" : "2.3.2"
+  , "connect-auth" : "~0"
+  , "connect-form" : "~0"
+  , "connect-redis" : "~1"
+  , "socket.io-cluster" : "~0"
+  , "oauth" : "~0"
+
+  , "jake" : "~0"
+  , "stylus" : "~0"
+  , "uglify-js" : "~1"
+
+  , "muchmala-common" : "~0"
+  }
+, "engines" :
+  { "node" : "~0.4"
+  , "npm" : "~1"
+  }
+}
