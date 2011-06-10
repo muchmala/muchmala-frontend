@@ -11,7 +11,7 @@ var exec = require('child_process').exec;
 //
 // setup
 //
-var db = loadDb();
+//var db = loadDb();
 //console.log('Database:', db);
 
 var configFiles = ['Jakefile.js', 'config.js'];
@@ -163,11 +163,11 @@ file('proxy.json', ['config/proxy.json.in'].concat(configFiles), function() {
 desc('upload static files to S3');
 task('static-upload', ['stylus-render'], function() {
     var uploadFiles = [
-        ['client/css/styles.css', db.staticVersion + '/css/styles.css'],
-        ['client/js/minified.js',   db.staticVersion + '/js/minified.js']
+        ['lib/client/css/styles.css', db.staticVersion + '/css/styles.css'],
+        ['lib/client/js/minified.js',   db.staticVersion + '/js/minified.js']
     ];
 
-    var puzzlesFiles = getPuzzlesFiles('client/img/puzzles');
+    var puzzlesFiles = getPuzzlesFiles('lib/client/img/puzzles');
     puzzlesFiles.forEach(function(puzzleFile) {
         var parts = puzzleFile.split('/');
         parts.shift();
@@ -175,7 +175,7 @@ task('static-upload', ['stylus-render'], function() {
         uploadFiles.push([puzzleFile, url]);
     });
 
-    var coversFiles = getCoversFiles('client/img/covers');
+    var coversFiles = getCoversFiles('lib/client/img/covers');
     coversFiles.forEach(function(coverFile) {
         var parts = coverFile.split('/');
         parts.shift();
@@ -223,15 +223,15 @@ task('static-upload', ['stylus-render'], function() {
 //
 // JAVASCRIPT FILES COMPRESSION
 //
-var jsDir = 'client/js/';
+var jsDir = 'lib/client/js/';
 var uncompressedJsFiles = [
     jsDir + 'jquery/jquery.scraggable/jquery.scraggable.js',
     jsDir + 'jquery/jquery.viewport/jquery.viewport.js',
     jsDir + 'jquery/jquery.scrolla/jquery.scrolla.js',
     jsDir + 'jquery/jquery.cookie.js',
 
-    'shared/flow.js',
-    'shared/messages.js',
+    'lib/shared/flow.js',
+    'lib/shared/messages.js',
 
     jsDir + 'utils.js',
     jsDir + 'third/aim.js',
@@ -257,7 +257,7 @@ var compressedJsFiles = [
     jsDir + 'socket.io/socket.io.min.js',
     jsDir + 'jquery/jquery.min.js',
     jsDir + 'jquery/jquery-ui.js',
-    'shared/underscore.js'
+    'lib/shared/underscore.js'
 ];
 
 var resultJsFile = jsDir + 'minified.js';
@@ -293,8 +293,8 @@ file(resultJsFile, uncompressedJsFiles, function() {
 //
 // STYLUS
 //
-var inputFile = 'client/css/styles.styl';
-var stylusUrl = 'server/scripts/stylusUrl.js';
+var inputFile = 'lib/client/css/styles.styl';
+var stylusUrl = 'lib/stylusUrl.js';
 
 desc('Run stylus with "watch" option');
 task('stylus-watch', [], function() {
@@ -317,7 +317,7 @@ function runStylus(watch, callback) {
     }
 
     command += ' --compress';
-    command += ' --include client/css';
+    command += ' --include lib/client/css';
     command += ' --use ' + stylusUrl;
     command += ' ' + inputFile;
 

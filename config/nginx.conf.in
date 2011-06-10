@@ -9,10 +9,10 @@ server {
 	gzip_comp_level 1;
 
 	location / {
-		root "<%= root %>/client";
+		root "<%= root %>/lib/client";
 	}
 
 	location /shared/ {
-		root "<%= root %>";
+		root "<%= root %>/lib";
 	}
 }
