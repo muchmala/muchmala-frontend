@@ -1,18 +1,28 @@
 server {
-	listen <%= config.STATIC_PORT %>;
-	server_name <%= config.STATIC_HOST %>;
+    listen <%= config.static.port %>;
+    server_name <%= config.static.host %>;
 
-	gzip on;
-	gzip_proxied any;
-	gzip_types text/javascript application/x-javascript text/css;
-	gzip_disable "msie6";
-	gzip_comp_level 1;
+    gzip on;
+    gzip_proxied any;
+    gzip_types text/javascript application/x-javascript text/css;
+    gzip_disable "msie6";
+    gzip_comp_level 1;
 
-	location / {
-		root "<%= root %>/lib/client";
-	}
+<% if (config.static.minified) { %>
 
-	location /shared/ {
-		root "<%= root %>/lib";
-	}
+    location / {
+        root "<%= root %>/webroot/static";
+    }
+
+<% } else { %>
+
+    location / {
+        root "<%= root %>/lib/client";
+    }
+
+    location /shared/ {
+        root "<%= root %>/lib";
+    }
+
+<% } %>
 }

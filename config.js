@@ -1,54 +1,86 @@
 var config = exports;
-config.DEV = true;
 
-config.HTTP_HOST = '0.0.0.0';
-config.HTTP_PORT = 80;
+config.http = {
+    host: '0.0.0.0',
+    port: 80
+};
+config.http.url = 'http://muchmala.dev' + ((config.http.port != 80) ? ":" + config.http.port : "");
 
-config.MAIN_URL   = 'http://muchmala.dev';
+config.static = {
+    host: "static.muchmala.dev",
+    port: 8080,
+    version: 1,
+    minified: false
+};
+config.static.url = "http://" + config.static.host + ((config.static.port != 80) ? ":" + config.static.port : ""),
 
-config.STATIC_HOST = 'static.muchmala.dev';
-config.STATIC_PORT = 8080;
-config.STATIC_URL = 'http://' + config.STATIC_HOST + ':' + config.STATIC_PORT;
+config.storage = {
+    type: 'file',
+    file: {
+        location: './webroot'
+    },
+    s3: {
+        key:    null,
+        secret: null,
+        bucket: 'dev.muchmala.com'
+    }
+};
 
-config.MONGODB_HOST     = '127.0.0.1';
-config.MONGODB_USER     = 'mongodb';
-config.MONGODB_DATABASE = 'muchmala';
+config.mongodb = {
+    host:     '127.0.0.1',
+    user:     'mongodb',
+    database: 'muchmala'
+};
 
-config.REDIS_HOST       = '127.0.0.1';
-config.REDIS_PORT       = 6379;
-config.REDIS_PASSWORD   = undefined;
-config.REDIS_DATABASE   = 0;
+config.queue = {
+    host: "127.0.0.1",
+    port: 6379,
+    password: undefined,
+    database: 0
+};
 
-config.AWS_KEY          = null;
-config.AWS_SECRET       = null;
-config.S3_BUCKET_MAIN   = 'dev.muchmala.com';
-config.S3_BUCKET_STATIC = 'static.dev.muchmala.com';
+config.cache = config.queue;
 
-config.UTILS_DB = __dirname + '/utils.db';
+config.autenticationServices = {
+    active: [],
+    Twitter: {
+        consumerKey:    null,
+        consumerSecret: null
+    },
+    Facebook: {
+        appId:     null,
+        appSecret: null,
+        callback:  config.http.url + '/auth/facebook',
+        scope:     'email'
+    },
+    Google: {
+        consumerKey:    null,
+        consumerSecret: null,
+        callback:       config.http.url + '/auth/google',
+        scope:          ''
+    },
+    Yahoo: {
+        consumerKey:    null,
+        consumerSecret: null,
+        callback:       config.http.url + '/auth/yahoo'
+    }
+};
 
-config.TWITTER_KEY      = '';
-config.TWITTER_SECRET   = '';
-config.FACEBOOK_ID      = '';
-config.FACEBOOK_SECRET  = '';
-config.GOOGLE_KEY       = '';
-config.GOOGLE_SECRET    = '';
-config.YAHOO_KEY        = '';
-config.YAHOO_SECRET     = '';
+config.googleAnalyticsKey = null;
+config.autoRestart = false;
 
-config.FRONTEND_SERVERS = [
-    {externalHost: 'muchmala.dev', externalPort: 80, internalPort: 8081} //can be only one for now
-];
-
-config.IO_SERVERS = [
+//@todo: remove this
+config.ioServers = [
     {externalHost: 'io1.muchmala.dev', externalPort: 80, internalPort: 8082},
     {externalHost: 'io2.muchmala.dev', externalPort: 80, internalPort: 8083}
 ];
 
-config.APP_SERVERS_COUNT = 1; //can be only one for now
 
-try {
-    var config_local = require('./config.local.js');
-    for (var key in config_local) {
-         config[key] = config_local[key];
-    }
-}catch(e) {}
+var localConfigPath = './config.local.js';
+if (require('path').existsSync(localConfigPath)) {
+    var localConfig = require(localConfigPath),
+        deepExtend = require('muchmala-common').misc.deepExtend;
+
+    deepExtend(config, localConfig);
+
+}

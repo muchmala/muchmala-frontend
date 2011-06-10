@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Massively Multiplayer Online Puzzle.</title>
-    <link rel="stylesheet" href="<%=(config.STATIC_URL + (config.production ? '/' + config.version : '') + '/css/styles.css')%>" />
+    <link rel="stylesheet" href="<%=(config.staticUrl + ( (config.minified) ? '/' + config.version : "/css" ) + '/styles.css')%>" />
     <!--[if lte IE 8]>
     <script>
         document.createElement('nav');
@@ -13,10 +13,10 @@
 </head>
 <body>
 <%- body %>
-<% if (config.production) { %>
+<% if (config.googleAnalyticsKey) { %>
 <script type="text/javascript">
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-22398110-1']);
+    _gaq.push(['_setAccount', '<%=config.googleAnalyticsKey%>']);
     _gaq.push(['_trackPageview']);
 
     (function() {

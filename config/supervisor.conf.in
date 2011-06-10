@@ -1,0 +1,8 @@
+[group:muchmala]
+programs=muchmala-frontend
+
+[program:muchmala-frontend]
+command=node <%= root %>/index.js
+directory=<%= root %>
+autostart=<%=config.autoRestart%>
+autorestart=<%=config.autoRestart%>

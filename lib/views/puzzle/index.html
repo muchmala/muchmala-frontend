@@ -14,52 +14,55 @@
 <%- partial('browser') %>
 
 <script>
-	window.Puzz = {Utils: {}, Models: {}, Collections: {}, Views: {}};
-	window.STATIC_HOST = '<%=config.STATIC_URL%>';
-	window.SOCKET_SERVERS = <%-socketIoServers%>;
-	window.IO_HOST = window.SOCKET_SERVERS[0].host;
-	window.IO_PORT = window.SOCKET_SERVERS[0].port;
+    window.Puzz = {Utils: {}, Models: {}, Collections: {}, Views: {}};
+    window.STATIC_HOST = '<%=config.staticUrl%>';
+    window.SOCKET_SERVERS = <%-socketIoServers%>;
+    window.IO_HOST = window.SOCKET_SERVERS[0].host;
+    window.IO_PORT = window.SOCKET_SERVERS[0].port;
 </script>
 
-<% if (config.production) { %>
-<script src="<%=config.STATIC_URL%>/<%=config.version%>/js/minified.js"></script>
-<% } else { %>
-<script src="<%=config.STATIC_URL%>/js/socket.io/socket.io.js"></script>
+<% if (config.minified) { %>
+<script src="<%=config.staticUrl%>/<%=config.version%>/minified.js"></script>
+<% } else {
+    [ '/js/socket.io/socket.io.js'
 
-<script src="<%=config.STATIC_URL%>/js/jquery/jquery.min.js"></script>
-<script src="<%=config.STATIC_URL%>/js/jquery/jquery-ui.js"></script>
-<script src="<%=config.STATIC_URL%>/js/jquery/jquery.cookie.js"></script>
-<script src="<%=config.STATIC_URL%>/js/jquery/jquery.scraggable/jquery.scraggable.js"></script>
-<script src="<%=config.STATIC_URL%>/js/jquery/jquery.viewport/jquery.viewport.js"></script>
-<script src="<%=config.STATIC_URL%>/js/jquery/jquery.scrolla/jquery.scrolla.js"></script>
+    , '/js/jquery/jquery.min.js'
+    , '/js/jquery/jquery-ui.js'
+    , '/js/jquery/jquery.cookie.js'
+    , '/js/jquery/jquery.scraggable/jquery.scraggable.js'
+    , '/js/jquery/jquery.viewport/jquery.viewport.js'
+    , '/js/jquery/jquery.scrolla/jquery.scrolla.js'
 
-<script src="<%=config.STATIC_URL%>/shared/flow.js"></script>
-<script src="<%=config.STATIC_URL%>/shared/underscore.js"></script>
-<script src="<%=config.STATIC_URL%>/shared/messages.js"></script>
+    , '/shared/flow.js'
+    , '/shared/underscore.js'
+    , '/shared/messages.js'
 
-<script src="<%=config.STATIC_URL%>/js/utils.js"></script>
-<script src="<%=config.STATIC_URL%>/js/third/aim.js"></script>
+    , '/js/utils.js'
+    , '/js/third/aim.js'
 
-<script src="<%=config.STATIC_URL%>/js/backbone/backbone.js"></script>
-<script src="<%=config.STATIC_URL%>/js/backbone/backbone.io.js"></script>
+    , '/js/backbone/backbone.js'
+    , '/js/backbone/backbone.io.js'
 
-<script src="<%=config.STATIC_URL%>/js/loader.js"></script>
-<script src="<%=config.STATIC_URL%>/js/storage.js"></script>
-<script src="<%=config.STATIC_URL%>/js/server.js"></script>
+    , '/js/loader.js'
+    , '/js/storage.js'
+    , '/js/server.js'
 
-<script src="<%=config.STATIC_URL%>/js/models/user.js"></script>
-<script src="<%=config.STATIC_URL%>/js/models/puzzle.js"></script>
+    , '/js/models/user.js'
+    , '/js/models/puzzle.js'
 
-<script src="<%=config.STATIC_URL%>/js/collections/pieces.js"></script>
-<script src="<%=config.STATIC_URL%>/js/collections/leaders.js"></script>
-<script src="<%=config.STATIC_URL%>/js/collections/twenty.js"></script>
+    , '/js/collections/pieces.js'
+    , '/js/collections/leaders.js'
+    , '/js/collections/twenty.js'
 
-<script src="<%=config.STATIC_URL%>/js/views/puzzle.js"></script>
-<script src="<%=config.STATIC_URL%>/js/views/piece.js"></script>
-<script src="<%=config.STATIC_URL%>/js/views/viewport.js"></script>
-<script src="<%=config.STATIC_URL%>/js/views/dialogs.js"></script>
-<script src="<%=config.STATIC_URL%>/js/views/panel.js"></script>
+    , '/js/views/puzzle.js'
+    , '/js/views/piece.js'
+    , '/js/views/viewport.js'
+    , '/js/views/dialogs.js'
+    , '/js/views/panel.js'
 
-<script src="<%=config.STATIC_URL%>/js/app.js"></script>
-<% } %>
+    , '/js/app.js'
+    ].forEach(function(src) { %>
+<script src="<%=(config.staticUrl + src)%>"></script><%
+    });
+} %>
 <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>

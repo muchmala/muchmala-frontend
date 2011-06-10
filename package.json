@@ -13,15 +13,15 @@
 , "dependencies" :
   { "opts" : "~1"
   , "ejs" : "~0"
-  , "knox" : "~0"
   , "flow" : "~0"
+  , "async" : "~0"
   , "underscore" : "~1"
 
   , "connect" : "~1"
   , "express" : "2.3.2"
   , "connect-auth" : "~0"
   , "connect-form" : "~0"
-  , "connect-redis" : "~1"
+  , "connect-redis" : "1.0.4"
   , "socket.io-cluster" : "~0"
   , "oauth" : "~0"
 
