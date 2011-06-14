@@ -14,6 +14,7 @@ or
 
     git clone https://github.com/muchmala/muchmala-frontend.git
     cd muchmala-frontend
+    git submodule update --init --recursive
     npm install --registry http://registry.npm.muchmala.com
 
 # Main jake tasks

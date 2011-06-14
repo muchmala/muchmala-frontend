@@ -115,7 +115,7 @@ task('restart', ['install'], function() {
 desc('install project');
 var deps = ['config', 'restart-supervisor'];
 if (config.storage.type == 'file') {
-    deps.push('restart-nginx');
+    deps.push('restart-nginx', resultCssFile);
 }
 task('install', deps, function() {
 });
