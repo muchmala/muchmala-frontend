@@ -17,13 +17,12 @@ var uncompressedJsFiles = [
     jsDir + 'jquery/jquery.scrolla/jquery.scrolla.js',
     jsDir + 'jquery/jquery.cookie.js',
 
-    'lib/shared/flow.js',
-    'lib/shared/messages.js',
-
     jsDir + 'utils.js',
     jsDir + 'third/aim.js',
+    jsDir + 'third/flow.js',
     jsDir + 'backbone/backbone.js',
     jsDir + 'backbone/backbone.io.js',
+    jsDir + 'messages.js',
     jsDir + 'loader.js',
     jsDir + 'storage.js',
     jsDir + 'server.js',
@@ -44,7 +43,7 @@ var compressedJsFiles = [
     jsDir + 'socket.io/socket.io.min.js',
     jsDir + 'jquery/jquery.min.js',
     jsDir + 'jquery/jquery-ui.js',
-    'lib/shared/underscore.js'
+    jsDir + 'third/underscore.js'
 ];
 
 var resultJsFile = jsDir + 'minified.js';
