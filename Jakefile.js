@@ -8,8 +8,10 @@ var path = require('path'),
     muchmalaStorage = require('muchmala-common').storage,
     config = require('./config.js');
 
-var jsDir =   'lib/client/js/';
-var stylDir = 'lib/client/css/';
+var libDir = __dirname + '/lib';
+
+var jsDir =   libDir + '/client/js/';
+var stylDir = libDir + '/client/css/';
 
 var uncompressedJsFiles = [
     jsDir + 'jquery/jquery.scraggable/jquery.scraggable.js',
@@ -55,148 +57,39 @@ var monifiedStaticFiles = {
 };
 
 var inputFile = stylDir + 'styles.styl';
-var stylusUrl = 'lib/stylusUrl.js';
+var stylusUrl = libDir + '/stylusUrl.js';
 
 var configFiles = ['Jakefile.js', 'config.js'];
 if (path.existsSync('config.local.js')) {
     configFiles.push('config.local.js');
 }
 
+var useMinifiedStatic = config.static.minified;
+var useNginx = config.storage.type == 'file';
+
 //
 // tasks
 //
-
-desc('start all services');
-task('start', ['install'], function() {
-    console.log('Starting all services...');
-    exec('supervisorctl start muchmala:', function(err, stdout, stderr) {
-        if (err) {
-            throw err;
-        }
-
-        console.log('DONE');
-        complete();
-    });
-}, true);
+desc('Install project');
+task('install', ['prepare-static'], message("Muchmala-frontend is now installed"));
 
 
 
-desc('stop all services');
-task('stop', [], function() {
-    console.log('Stopping all services...');
-    exec('supervisorctl stop muchmala:', function(err, stdout, stderr) {
-        if (err) {
-            throw err;
-        }
-
-        console.log('DONE');
-        complete();
-    });
-}, true);
-
-
-
-desc('restart all services');
-task('restart', ['install'], function() {
-    console.log('Restarting all services...');
-    exec('supervisorctl restart muchmala:', function(err, stdout, stderr) {
-        if (err) {
-            throw err;
-        }
-
-        console.log('DONE');
-        complete();
-    });
-}, true);
-
-
-
-desc('install project');
-var deps = ['config', 'restart-supervisor'];
-if (config.storage.type == 'file') {
-    deps.push('restart-nginx', resultCssFile);
-}
-task('install', deps, function() {
-});
-
-
-
-desc('restart nginx');
-task('restart-nginx', ['/etc/nginx/sites-enabled/muchmala.dev'], function() {
-    console.log('Restarting nginx...');
-    exec('service nginx restart', function(err, stdout, stderr) {
-        if (err) {
-            throw err;
-        }
-
-        console.log('DONE');
-        complete();
-    });
-}, true);
-
-
-
-desc('restart supervisor');
-task('restart-supervisor', ['/etc/supervisor/conf.d/muchmala.conf'], function() {
-    console.log('Restarting supervisor...');
-    exec('/etc/init.d/supervisor stop', function(err, stdout, stderr) {
-        if (err) {
-            throw err;
-        }
-
-        exec('/etc/init.d/supervisor start', function(err, stdout, stderr) {
-            if (err) {
-                throw err;
-            }
-
-            console.log('DONE');
-            complete();
-        });
-    });
-}, true);
-
-
-
-desc('generate configs');
-var deps = ['/etc/supervisor/conf.d/muchmala.conf'];
-if (config.storage.type == 'file') {
-    deps.push('/etc/nginx/sites-enabled/muchmala.dev');
-}
-task('config', deps, function() {});
-
-
-
-desc('generate supervisor config');
-file('/etc/supervisor/conf.d/muchmala.conf', ['config/supervisor.conf.in'].concat(configFiles), function() {
-    console.log('Generating supervisor config...');
-    render('config/supervisor.conf.in', '/etc/supervisor/conf.d/muchmala.conf', {config: config});
-    console.log('DONE');
-});
-
-
-
-desc('generate nginx config');
-file('/etc/nginx/sites-enabled/muchmala.dev', ['config/nginx.conf.in'].concat(configFiles), function() {
-    console.log('Generating nginx config...');
-    render('config/nginx.conf.in', '/etc/nginx/sites-enabled/muchmala.dev', {config: config});
-    console.log('DONE');
-
-    var defaultNginxSiteConfig = '/etc/nginx/sites-enabled/default';
-    if (path.existsSync(defaultNginxSiteConfig)) {
-        console.log('Removing default nginx config...');
-        fs.unlinkSync(defaultNginxSiteConfig);
-        console.log('DONE');
-    }
-});
+desc('Prepare static for frontend server');
+var prepareStaticDependencies = [resultCssFile];
+useMinifiedStatic && prepareStaticDependencies.push('static-upload');
+useNginx && prepareStaticDependencies.push('restart-nginx');
+task('prepare-static', prepareStaticDependencies, function() {});
 
 
 
 desc('upload static files to storage');
 task('static-upload', [resultJsFile, resultCssFile], function() {
     if (!config.static.minified) {
-        console.log("You are using non-minified version of static");
+        console.log("You are using non-minified version of static which is served locally. No need to upload.");
         return complete();
     }
+
     var storage, newVersion = 1;
 
     async.waterfall([function(callback) {
@@ -251,9 +144,9 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
         }, callback);
 
     }], function(err) {
+        console.error(err)
         if (err) {
-            console.log(err);
-            return complete();
+            return fail(err, 1);
         }
 
         console.log('DONE');
@@ -262,7 +155,22 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
 
 
 
-desc('compress JavaScript files');
+desc("Start/restart nginx");
+task('restart-nginx', ['/etc/nginx/sites-enabled/muchmala.dev'], function() {
+    console.log('Restarting nginx...');
+    exec('service nginx restart', function(err) {
+        if (err) {
+            return fail(err);
+        }
+
+        console.log('Nginx is now running.');
+        complete();
+    });
+}, true);
+
+
+
+desc('Compress JavaScript files');
 task('compressjs', [resultJsFile], function() {
     console.log('DONE');
     complete();
@@ -270,7 +178,7 @@ task('compressjs', [resultJsFile], function() {
 
 
 
-desc('generate minified js file');
+desc('Generate minified js file');
 file(resultJsFile, uncompressedJsFiles, function() {
     var codeToCompress = '';
     var compressedCode = '';
@@ -294,19 +202,16 @@ file(resultJsFile, uncompressedJsFiles, function() {
 
 
 desc('Run stylus with "watch" option');
-task('stylus-watch', [], function() {
-    runStylus(true);
-});
+task('stylus-watch', function() { runStylus(true); });
 
 
 
 desc('Run stylus to render CSS once');
-task('stylus-render', [resultCssFile], function() {
-});
+task('stylus-render', [resultCssFile], function() {});
 
 
 
-desc('generate minified css file');
+desc('Generate minified css file');
 file(resultCssFile, getStylFiles(stylDir), function() {
     runStylus(false, function() {
         console.log('CSS is rendered');
@@ -314,6 +219,19 @@ file(resultCssFile, getStylFiles(stylDir), function() {
     });
 }, true);
 
+
+
+desc('Generate nginx config');
+file('/etc/nginx/sites-enabled/muchmala.dev', ['config/nginx.conf.in'].concat(configFiles), function() {
+    console.log('Generating nginx config...');
+    render('config/nginx.conf.in', '/etc/nginx/sites-enabled/muchmala.dev', {config: config});
+
+    var defaultNginxSiteConfig = '/etc/nginx/sites-enabled/default';
+    if (path.existsSync(defaultNginxSiteConfig)) {
+        console.log('Removing default nginx config...');
+        fs.unlinkSync(defaultNginxSiteConfig);
+    }
+});
 
 //
 // helpers
@@ -369,4 +287,10 @@ function runStylus(watch, callback) {
         if (error) throw error;
         if (callback) callback();
     });
+}
+
+function message(text) {
+    return function() {
+        console.log(text);
+    };
 }

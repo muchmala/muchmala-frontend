@@ -19,12 +19,10 @@ or
 
 # Main jake tasks
 
-    jake start              # start all services
-    jake stop               # stop all services
-    jake restart            # restart all services
-    jake install            # install project
+    [sudo] jake install            # Installs project. After that you can run
+    [sudo] node index.js
 
-    jake static-upload      # upload static files to storage
+    jake static-upload             # Upload static files to storage
 
 To see full list, you can run
 
