@@ -67,14 +67,6 @@ config.autenticationServices = {
 };
 
 config.googleAnalyticsKey = null;
-config.autoRestart = false;
-
-//@todo: remove this
-config.ioServers = [
-    {externalHost: 'io1.muchmala.dev', externalPort: 80, internalPort: 8082},
-    {externalHost: 'io2.muchmala.dev', externalPort: 80, internalPort: 8083}
-];
-
 
 var localConfigPath = './config.local.js';
 if (require('path').existsSync(localConfigPath)) {
