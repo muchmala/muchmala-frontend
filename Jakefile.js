@@ -71,20 +71,23 @@ var useNginx = config.storage.type == 'file';
 // tasks
 //
 desc('Install project');
-task('install', ['prepare-static'], message("Muchmala-frontend is now installed"));
+task('install', ['prepare-static'].concat(useNginx ? '/etc/nginx/sites-enabled/muchmala.dev' : []), function() {
+    console.log("Muchmala-frontend is now installed.");
+});
 
 
 
 desc('Prepare static for frontend server');
 var prepareStaticDependencies = [resultCssFile];
 useMinifiedStatic && prepareStaticDependencies.push('static-upload');
-useNginx && prepareStaticDependencies.push('restart-nginx');
 task('prepare-static', prepareStaticDependencies, function() {});
 
 
 
 desc('upload static files to storage');
 task('static-upload', [resultJsFile, resultCssFile], function() {
+    console.log('Uploading static...');
+
     if (!config.static.minified) {
         console.log("You are using non-minified version of static which is served locally. No need to upload.");
         return complete();
@@ -144,12 +147,11 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
         }, callback);
 
     }], function(err) {
-        console.error(err)
         if (err) {
             return fail(err, 1);
         }
 
-        console.log('DONE');
+        console.log('Static is uploaded.');
     });
 }, true);
 
@@ -158,21 +160,13 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
 desc("Start/restart nginx");
 task('restart-nginx', ['/etc/nginx/sites-enabled/muchmala.dev'], function() {
     console.log('Restarting nginx...');
-    exec('service nginx restart', function(err) {
-        if (err) {
-            return fail(err);
-        }
-
-        console.log('Nginx is now running.');
-        complete();
-    });
 }, true);
 
 
 
 desc('Compress JavaScript files');
 task('compressjs', [resultJsFile], function() {
-    console.log('DONE');
+    console.log('Js is compressed');
     complete();
 });
 
@@ -231,6 +225,15 @@ file('/etc/nginx/sites-enabled/muchmala.dev', ['config/nginx.conf.in'].concat(co
         console.log('Removing default nginx config...');
         fs.unlinkSync(defaultNginxSiteConfig);
     }
+
+    exec('service nginx restart', function(err) {
+        if (err) {
+            return fail(err);
+        }
+
+        console.log('Nginx is now running.');
+        complete();
+    });
 });
 
 //
@@ -287,10 +290,4 @@ function runStylus(watch, callback) {
         if (error) throw error;
         if (callback) callback();
     });
-}
-
-function message(text) {
-    return function() {
-        console.log(text);
-    };
 }
