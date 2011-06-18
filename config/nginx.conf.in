@@ -11,7 +11,7 @@ server {
 <% if (config.static.minified) { %>
 
     location / {
-        root "<%= root %>/webroot/static";
+        root "<%= config.storage.file.location %>/static";
     }
 
 <% } else { %>
@@ -25,4 +25,12 @@ server {
     }
 
 <% } %>
+
+    location /puzzles/ {
+        root "<%= config.storage.file.location %>";
+    }
+
+    location /covers/ {
+        root "<%= config.storage.file.location %>";
+    }
 }
