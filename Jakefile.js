@@ -8,7 +8,8 @@ var path = require('path'),
     muchmalaStorage = require('muchmala-common').storage,
     config = require('./config.js');
 
-var libDir = __dirname + '/lib';
+var cwd = __dirname + '/';
+var libDir = cwd + 'lib';
 
 var jsDir =   libDir + '/client/js/';
 var stylDir = libDir + '/client/css/';
@@ -57,11 +58,11 @@ var monifiedStaticFiles = {
 };
 
 var inputFile = stylDir + 'styles.styl';
-var stylusUrl = libDir + '/stylusUrl.js';
+var stylusUrl = 'lib/stylusUrl.js';
 
-var configFiles = ['Jakefile.js', 'config.js'];
-if (path.existsSync('config.local.js')) {
-    configFiles.push('config.local.js');
+var configFiles = [cwd + 'Jakefile.js', cwd + 'config.js'];
+if (path.existsSync(cwd + 'config.local.js')) {
+    configFiles.push(cwd + 'config.local.js');
 }
 
 var useMinifiedStatic = config.static.minified;
@@ -71,16 +72,14 @@ var useNginx = config.storage.type == 'file';
 // tasks
 //
 desc('Install project');
-task('install', ['prepare-static'].concat(useNginx ? '/etc/nginx/sites-enabled/muchmala.dev' : []), function() {
+task('install', ['prepare-static'].concat(useNginx ? '/etc/nginx/sites-enabled/muchmala.dev' : 'stop-nginx'), function() {
     console.log("Muchmala-frontend is now installed.");
 });
 
 
 
 desc('Prepare static for frontend server');
-var prepareStaticDependencies = [resultCssFile];
-useMinifiedStatic && prepareStaticDependencies.push('static-upload');
-task('prepare-static', prepareStaticDependencies, function() {});
+task('prepare-static', useMinifiedStatic ? ['static-upload'] : [resultCssFile], function() {});
 
 
 
@@ -152,14 +151,8 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
         }
 
         console.log('Static is uploaded.');
+        complete();
     });
-}, true);
-
-
-
-desc("Start/restart nginx");
-task('restart-nginx', ['/etc/nginx/sites-enabled/muchmala.dev'], function() {
-    console.log('Restarting nginx...');
 }, true);
 
 
@@ -190,13 +183,22 @@ file(resultJsFile, uncompressedJsFiles, function() {
     ast = uglify.ast_squeeze(ast);
 
     fs.writeFileSync(resultJsFile, compressedCode + uglify.gen_code(ast));
-    console.log('JS is rendered');
+    console.log('JS is rendered.');
 });
 
 
 
 desc('Run stylus with "watch" option');
-task('stylus-watch', function() { runStylus(true); });
+task('stylus-watch', function() {
+    runStylus(true, function(err) {
+        if (err) {
+            return fail(err);
+        }
+
+        console.log('Stylus-watch is now running.');
+        complete();
+    });
+}, true);
 
 
 
@@ -207,9 +209,13 @@ task('stylus-render', [resultCssFile], function() {});
 
 desc('Generate minified css file');
 file(resultCssFile, getStylFiles(stylDir), function() {
-    runStylus(false, function() {
-        console.log('CSS is rendered');
-        complete();
+    runStylus(false, function(err) {
+        if (err) {
+            return fail(err);
+        }
+
+        console.log('CSS is rendered.');
+        setTimeout(complete, 100);
     });
 }, true);
 
@@ -226,7 +232,7 @@ file('/etc/nginx/sites-enabled/muchmala.dev', ['config/nginx.conf.in'].concat(co
         fs.unlinkSync(defaultNginxSiteConfig);
     }
 
-    exec('service nginx restart', function(err) {
+    restartNginx(function(err) {
         if (err) {
             return fail(err);
         }
@@ -234,7 +240,38 @@ file('/etc/nginx/sites-enabled/muchmala.dev', ['config/nginx.conf.in'].concat(co
         console.log('Nginx is now running.');
         complete();
     });
-});
+}, true);
+
+
+
+desc("Start/restart nginx");
+task('restart-nginx', ['/etc/nginx/sites-enabled/muchmala.dev'], function() {
+    restartNginx(function(err) {
+        if (err) {
+            return fail(err);
+        }
+
+        console.log('Nginx is now running.');
+        complete();
+    });
+}, true);
+
+
+
+desc("Stop nginx");
+task('stop-nginx', function() {
+    console.log('Stopping nginx...');
+    stopNginx(function() {
+        if (err) {
+            console.err(err);
+        }
+
+        console.log('Nginx is now stopped.');
+        complete();
+    });
+
+}, true);
+
 
 //
 // helpers
@@ -286,8 +323,35 @@ function runStylus(watch, callback) {
     command += ' --use ' + stylusUrl;
     command += ' ' + inputFile;
 
-    exec(command, function(error) {
-        if (error) throw error;
-        if (callback) callback();
+    exec(command, function(err) {
+        if (err) {
+            return callback(err);
+        }
+
+        callback();
+    });
+}
+
+
+function restartNginx(callback) {
+    console.log('Restarting nginx...');
+    exec('service nginx restart', function(err) {
+        if (err) {
+            return callback(err);
+        }
+
+        callback();
+    });
+}
+
+function stopNginx(callback) {
+    console.log('Stopping nginx...');
+    exec('service nginx stop', function(err) {
+        if (err) {
+            callback(err);
+        }
+
+        console.log('Nginx is now stopped.');
+        callback();
     });
 }
