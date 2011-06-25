@@ -66,13 +66,12 @@ if (path.existsSync(cwd + 'config.local.js')) {
 }
 
 var useMinifiedStatic = config.static.minified;
-var useNginx = config.storage.type == 'file';
 
 //
 // tasks
 //
 desc('Install project');
-task('install', ['prepare-static'].concat(useNginx ? '/etc/nginx/sites-enabled/muchmala.dev' : 'stop-nginx'), function() {
+task('install', ['prepare-static'], function() {
     console.log("Muchmala-frontend is now installed.");
 });
 
@@ -221,56 +220,6 @@ file(resultCssFile, getStylFiles(stylDir), function() {
 
 
 
-desc('Generate nginx config');
-file('/etc/nginx/sites-enabled/muchmala.dev', ['config/nginx.conf.in'].concat(configFiles), function() {
-    console.log('Generating nginx config...');
-    render('config/nginx.conf.in', '/etc/nginx/sites-enabled/muchmala.dev', {config: config});
-
-    var defaultNginxSiteConfig = '/etc/nginx/sites-enabled/default';
-    if (path.existsSync(defaultNginxSiteConfig)) {
-        console.log('Removing default nginx config...');
-        fs.unlinkSync(defaultNginxSiteConfig);
-    }
-
-    restartNginx(function(err) {
-        if (err) {
-            return fail(err);
-        }
-
-        console.log('Nginx is now running.');
-        complete();
-    });
-}, true);
-
-
-
-desc("Start/restart nginx");
-task('restart-nginx', ['/etc/nginx/sites-enabled/muchmala.dev'], function() {
-    restartNginx(function(err) {
-        if (err) {
-            return fail(err);
-        }
-
-        console.log('Nginx is now running.');
-        complete();
-    });
-}, true);
-
-
-
-desc("Stop nginx");
-task('stop-nginx', function() {
-    console.log('Stopping nginx...');
-    stopNginx(function() {
-        if (err) {
-            console.err(err);
-        }
-
-        console.log('Nginx is now stopped.');
-        complete();
-    });
-
-}, true);
 
 
 //
@@ -328,30 +277,6 @@ function runStylus(watch, callback) {
             return callback(err);
         }
 
-        callback();
-    });
-}
-
-
-function restartNginx(callback) {
-    console.log('Restarting nginx...');
-    exec('service nginx restart', function(err) {
-        if (err) {
-            return callback(err);
-        }
-
-        callback();
-    });
-}
-
-function stopNginx(callback) {
-    console.log('Stopping nginx...');
-    exec('service nginx stop', function(err) {
-        if (err) {
-            callback(err);
-        }
-
-        console.log('Nginx is now stopped.');
         callback();
     });
 }
