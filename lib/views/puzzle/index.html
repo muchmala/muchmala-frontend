@@ -1,5 +1,13 @@
 <div id="display">
-<div id="viewport"></div>
+<div id="viewport">
+    <div class="puzzle"></div>
+    <div class="frame">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+    </div>
+</div>
 </div>
 
 <%- partial('dialogs/menu') %>
@@ -56,6 +64,7 @@
     , '/js/views/puzzle.js'
     , '/js/views/piece.js'
     , '/js/views/viewport.js'
+    , '/js/views/frame.js'
     , '/js/views/dialogs.js'
     , '/js/views/panel.js'
 

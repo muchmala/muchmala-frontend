@@ -142,3 +142,46 @@ input
     font-weight bold
     text-align center
     text-shadow 0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 1px #000
+
+#viewport .puzzle
+    z-index 1
+
+#viewport .frame
+    z-index 0
+    
+#viewport .puzzle
+#viewport .frame
+#viewport .frame .tile
+#viewport .frame .corner
+    position absolute
+    
+#viewport .frame .corner
+    background black
+
+#viewport .frame .corner.tl
+    top 0
+    left 0
+    
+#viewport .frame .corner.tr
+    top 0
+    right 0
+    
+#viewport .frame .corner.bl
+    bottom 0
+    left 0
+
+#viewport .frame .corner.br
+    bottom 0
+    right 0
+    
+#viewport .frame .tile.left
+    left 0
+
+#viewport .frame .tile.right
+    right 0
+
+#viewport .frame .tile.top
+    top 0
+
+#viewport .frame .tile.bottom
+    bottom 0
