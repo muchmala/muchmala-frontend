@@ -2,10 +2,10 @@ var path = require('path'),
     fs = require('fs'),
     ejs = require('ejs'),
     async = require('async'),
-    exec = require('child_process').exec,
     parser = require('uglify-js').parser,
     uglify = require('uglify-js').uglify,
     muchmalaStorage = require('muchmala-common').storage,
+    cmd = require('muchmala-common').cmd,
     config = require('./config.js');
 
 var cwd = __dirname + '/';
@@ -189,12 +189,13 @@ file(resultJsFile, uncompressedJsFiles, function() {
 
 desc('Run stylus with "watch" option');
 task('stylus-watch', function() {
+    console.log('Running stylus-watch...');
     runStylus(true, function(err) {
         if (err) {
             return fail(err);
         }
 
-        console.log('Stylus-watch is now running.');
+        console.log('stylus-watch was shut down.');
         complete();
     });
 }, true);
@@ -261,18 +262,25 @@ function render(src, dst, options) {
 
 
 function runStylus(watch, callback) {
-    var command = 'stylus';
+    var args = ['stylus',
+        '--compress',
+        '--include', stylDir,
+        '--use', stylusUrl
+    ];
 
     if (watch) {
-        command += ' --watch';
+        args.push('--watch');
     }
 
-    command += ' --compress';
-    command += ' --include ' + stylDir.slice(-1);
-    command += ' --use ' + stylusUrl;
-    command += ' ' + inputFile;
+    args.push(inputFile);
 
-    exec(command, function(err) {
+    cmd.unsudo(args, function(err) {
+        // TODO: find out what's wrong here
+        if (watch && err === 1) {
+            // we expect error code 1 in watch mode, so reset it
+            err = 0;
+        }
+
         if (err) {
             return callback(err);
         }
