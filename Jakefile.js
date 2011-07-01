@@ -23,22 +23,35 @@ var uncompressedJsFiles = [
     jsDir + 'utils.js',
     jsDir + 'third/aim.js',
     jsDir + 'third/flow.js',
+    jsDir + 'third/underscore.js',
+    
     jsDir + 'backbone/backbone.js',
     jsDir + 'backbone/backbone.io.js',
+    
     jsDir + 'messages.js',
-    jsDir + 'loader.js',
-    jsDir + 'storage.js',
     jsDir + 'server.js',
+
     jsDir + 'models/user.js',
     jsDir + 'models/puzzle.js',
+
     jsDir + 'collections/pieces.js',
     jsDir + 'collections/leaders.js',
     jsDir + 'collections/twenty.js',
+    
+    jsDir + 'helpers/statics.js',
+    jsDir + 'helpers/loader.js',
+
     jsDir + 'views/puzzle.js',
     jsDir + 'views/piece.js',
     jsDir + 'views/viewport.js',
+    jsDir + 'views/frame.js',
     jsDir + 'views/dialogs.js',
     jsDir + 'views/panel.js',
+    
+    jsDir + 'views/precious/scoreBlower.js',
+    jsDir + 'views/precious/lockingTooltips.js',
+    jsDir + 'views/precious/selectionIndicator.js',
+
     jsDir + 'app.js'
 ];
 
