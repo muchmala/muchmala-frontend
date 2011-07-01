@@ -23,6 +23,7 @@ input
 
 .viewportContent canvas
     position absolute
+    z-index 1
     
 .button
     display inline-block
@@ -145,10 +146,10 @@ input
     text-shadow 0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 1px #000
 
 #viewport .puzzle
-    z-index 1
+    z-index 0
 
 #viewport .frame
-    z-index 0
+    z-index 1
     
 #viewport .puzzle
 #viewport .frame
@@ -186,3 +187,7 @@ input
 
 #viewport .frame .tile.bottom
     bottom 0
+    
+#viewport .puzzle .tileBorder
+    position absolute
+    z-index 0
