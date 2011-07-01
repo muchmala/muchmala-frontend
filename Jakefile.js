@@ -112,7 +112,7 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
     function(stor, callback) {
         storage = stor;
 
-        storage.listDir('static/', callback);
+        storage.listDir('/', callback);
 
     }, function(contents, callback) {
         var maxVersion = 0;
@@ -128,7 +128,7 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
             newVersion = lastVersion + 1;
         }
 
-        storage.listDir('static/' + lastVersion + '/', function(err, contents) {
+        storage.listDir('/' + lastVersion + '/', function(err, contents) {
             if (!contents.files) {
                 return callback(null, true);
             }
@@ -154,7 +154,7 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
         console.log("Uploading version " + newVersion);
         async.forEachSeries(Object.keys(monifiedStaticFiles), function(fileName, callback) {
             console.log('Uploading file ' + monifiedStaticFiles[fileName]);
-            storage.put(monifiedStaticFiles[fileName], '/static/' + newVersion + '/' + fileName, callback);
+            storage.put(monifiedStaticFiles[fileName], '/' + newVersion + '/' + fileName, callback);
         }, callback);
 
     }], function(err) {
