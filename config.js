@@ -38,7 +38,7 @@ config.static.url = process.env.MUCHMALA_FE_STATIC_URL ||
 config.storage = {
     type: process.env.MUCHMALA_STORAGE_TYPE || 'file',
     file: {
-        location: process.env.MUCHMALA_STORAGE_FILE_LOCATION || './webroot'
+        location: process.env.MUCHMALA_STORAGE_FILE_LOCATION || '/opt/muchmala/webroot'
     },
     s3: {
         key:    process.env.MUCHMALA_STORAGE_S3_KEY || null,
