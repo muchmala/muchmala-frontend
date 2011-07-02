@@ -48,6 +48,7 @@ var uncompressedJsFiles = [
     jsDir + 'views/dialogs.js',
     jsDir + 'views/panel.js',
     
+    jsDir + 'views/precious/blinker.js',
     jsDir + 'views/precious/scoreBlower.js',
     jsDir + 'views/precious/lockingTooltips.js',
     jsDir + 'views/precious/selectionIndicator.js',
