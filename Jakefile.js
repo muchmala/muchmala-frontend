@@ -24,10 +24,10 @@ var uncompressedJsFiles = [
     jsDir + 'third/aim.js',
     jsDir + 'third/flow.js',
     jsDir + 'third/underscore.js',
-    
+
     jsDir + 'backbone/backbone.js',
     jsDir + 'backbone/backbone.io.js',
-    
+
     jsDir + 'messages.js',
     jsDir + 'server.js',
 
@@ -37,7 +37,7 @@ var uncompressedJsFiles = [
     jsDir + 'collections/pieces.js',
     jsDir + 'collections/leaders.js',
     jsDir + 'collections/twenty.js',
-    
+
     jsDir + 'helpers/statics.js',
     jsDir + 'helpers/loader.js',
 
@@ -47,7 +47,7 @@ var uncompressedJsFiles = [
     jsDir + 'views/frame.js',
     jsDir + 'views/dialogs.js',
     jsDir + 'views/panel.js',
-    
+
     jsDir + 'views/precious/blinker.js',
     jsDir + 'views/precious/scoreBlower.js',
     jsDir + 'views/precious/lockingTooltips.js',
@@ -162,6 +162,8 @@ task('static-upload', [resultJsFile, resultCssFile], function() {
         if (err) {
             return fail(err, 1);
         }
+
+        config.setStaticVersion(newVersion);
 
         console.log('Static is uploaded.');
         complete();
