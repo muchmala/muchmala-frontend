@@ -33,7 +33,7 @@ config.static = {
     minified: process.env.MUCHMALA_FE_STATIC_MINIFIED || false
 };
 config.static.url = process.env.MUCHMALA_FE_STATIC_URL ||
-    "http://" + config.static.host + ((config.static.port != 80) ? ":" + config.static.port : ""),
+    "http://" + config.static.host + ((config.static.port != 80) ? ":" + config.static.port : "");
 
 config.storage = {
     type: process.env.MUCHMALA_STORAGE_TYPE || 'file',
