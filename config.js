@@ -1,3 +1,6 @@
+var fs = require('fs'),
+    path = require('path');
+
 var config = exports;
 
 config.http = {
@@ -29,11 +32,15 @@ if (process.env.MUCHMALA_FE_IO_SERVERS) {
 config.static = {
     host: process.env.MUCHMALA_FE_STATIC_HOST || "static.muchmala.dev",
     port: process.env.MUCHMALA_FE_STATIC_PORT || 8080,
-    version: process.env.MUCHMALA_FE_STATIC_VERSION || 1,
+
+    // see getStaticVersion() below
+    //version: process.env.MUCHMALA_FE_STATIC_VERSION || 1,
+    versionFile: process.env.MUCHMALA_FE_STATIC_VERSION_FILE || './staticversion.json',
+
     minified: process.env.MUCHMALA_FE_STATIC_MINIFIED || false
 };
 config.static.url = process.env.MUCHMALA_FE_STATIC_URL ||
-    "http://" + config.static.host + ((config.static.port != 80) ? ":" + config.static.port : ""),
+    "http://" + config.static.host + ((config.static.port != 80) ? ":" + config.static.port : "");
 
 config.storage = {
     type: process.env.MUCHMALA_STORAGE_TYPE || 'file',
@@ -88,3 +95,20 @@ config.autenticationServices = {
 };
 
 config.googleAnalyticsKey = process.env.MUCHMALA_GOOGLE_ANALYTICS_KEY || null;
+
+config.getStaticVersion = function() {
+    if (process.env.MUCHMALA_FE_STATIC_VERSION) {
+        return process.env.MUCHMALA_FE_STATIC_VERSION;
+    }
+
+    if (path.existsSync(config.static.versionFile)) {
+        var staticVersion = JSON.parse(fs.readFileSync(config.static.versionFile));
+        return staticVersion;
+    }
+
+    return 1;
+};
+
+config.setStaticVersion = function(staticVersion) {
+    fs.writeFileSync(config.static.versionFile, JSON.stringify(staticVersion));
+};

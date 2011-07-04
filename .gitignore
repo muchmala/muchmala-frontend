@@ -1,10 +1,8 @@
 .vagrant
-config.local.js
 lib/client/css/styles.css
 lib/client/js/minified.js
 lib/client/img/puzzles/
-utils.db
-index.html
 node_modules
-proxy.json
 webroot
+staticversion.json
+
