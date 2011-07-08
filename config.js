@@ -5,7 +5,7 @@ var config = exports;
 
 config.http = {
     host: process.env.MUCHMALA_FE_HTTP_HOST || '0.0.0.0',
-    port: process.env.MUCHMALA_FE_HTTP_PORT || 80
+    port: process.env.MUCHMALA_FE_HTTP_PORT || 8000
 };
 config.http.url = process.env.MUCHMALA_FE_URL || 'http://muchmala.dev';
 
