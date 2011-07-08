@@ -1,12 +1,12 @@
 [submodule "lib/client/js/jquery/jquery.scraggable"]
 	path = lib/client/js/jquery/jquery.scraggable
-	url = git@github.com:borbit/jquery.scraggable.git
+	url = https://github.com/borbit/jquery.scraggable.git
 [submodule "lib/client/js/jquery/jquery.viewport"]
 	path = lib/client/js/jquery/jquery.viewport
-	url = git@github.com:borbit/jquery.viewport.git
+	url = https://github.com/borbit/jquery.viewport.git
 [submodule "lib/client/js/jquery/jquery.scrolla"]
 	path = lib/client/js/jquery/jquery.scrolla
-	url = git@github.com:borbit/jquery.scrolla.git
+	url = https://github.com/borbit/jquery.scrolla.git
 [submodule "lib/client/js/socket.io"]
 	path = lib/client/js/socket.io
-	url = git@github.com:borbit/Socket.IO.git
+	url = https://github.com/borbit/Socket.IO.git
