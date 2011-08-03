@@ -1,56 +1,25 @@
-<nav>
-<aside><div></div></aside>
-<section>
-    <header>
-        Madness? No! This is
-        <h1>Muchmala</h1>
-        <h2>massively multiplayer online puzzle</h2>
-    </header>
-    
-    <div class="progressbar">
-        <i></i><span>Connecting...</span>
-    </div>
-        
-    <div class="user borders">
+<nav class="user">
+    <div class="left">
         <span class="score">Score:</span>
         <span class="num">0</span>
-        <span class="pts">pts.</span><br/>
+        <span class="pts">pts.</span>
+    </div>
+    <div class="right">
         <span class="button name">anonymous</span><br/>
         <a href="/auth/logout" class="logout">Log out</a>
         <span class="auth">Sign Up / Log in</span>
     </div>
-    
-    <div class="statistics">
-        Statistics:
-        <ul>
-            <li>connected<span class="connected">0</span></li>
-            <li>complete<span class="complete">0</span></li>
-            <li>time spent<span class="timeSpent">00:00</span></li>
-            <li>quantity<span class="quantity">0</span></li>
-            <li>swaps<span class="swaps">0</span></li>
-        </ul>
-    </div>
+</nav>
+
+<nav class="info">
+    <span class="button expcol"><em></em></span>
     
     <div class="leadersboard">
-        Leaders board: <div class="button">score</div>
-        <div class="borders">
-        <div class="viewport"><div class="list"><em class="empty">It is empty yet :)</em></div></div>
-        </div>
+        Connected: <span class="connected">0</span>
+        <div class="button">score</div>
+        <div class="viewport"><div class="list"><em class="empty">Leadersboard is empty :(</em></div></div>
     </div>
-    
-    <span class="button openMenu">Open game menu</span>
-    <span class="button big createPuzzle">Create Puzzle</span>
-        
-    <footer>
-        <div class="stayTuned">
-            Stay tuned on<br/>
-            <a href="http://twitter.com/html5puzzle" target="_blank">Our Twitter</a>
-            (<a href="http://twitter.com/html5puzzle" target="_blank">@html5puzzle</a>)
-            <a href="http://facebook.com/muchmala" target="_blank">Facebook page</a>
-            (<a href="http://facebook.com/muchmala" target="_blank">@muchmala</a>)<br/>
-            <a href="https://github.com/muchmala" target="_blank">We are on GitHub</a>
-        </div>
-        <fb:like href="http://muchmala.com/" layout="button_count" show_faces="false"></fb:like>
-    </footer>
-</section>
+
+    <span class="button openMenu">Menu</span>
+    <span class="button createPuzzle">Create Puzzle</span>
 </nav>

@@ -1,50 +1,15 @@
 nav
     display none
     position absolute
-    overflow hidden
     z-index 1001
-    top 0px
-    bottom 0px
-    right 0px
-    width 170px
-    border-left 1px solid #555
+    float left
+    right 10px
+    border 1px solid #555
     background rgba(0,0,0,0.7)
     box-shadow 0 0 5px #000
+    text-align center
+    font-size 10px
     color #fff
-
-nav aside
-    display block
-    position absolute
-    top 0
-    bottom 0
-    left 0
-    width 10px
-    cursor pointer
-
-nav aside div
-    position absolute
-    top 50%
-    left 3px
-    height 0
-    width 0
-    border 4px solid transparent
-    border-left-color #999
-
-nav.hidden aside div
-    left -1px
-    border-color transparent
-    border-right-color #999
-
-nav aside:hover
-    background rgba(255,255,255,.4)
-
-nav aside:hover div
-    border-right-color transparent
-    border-left-color #000
-
-nav.hidden aside:hover div
-    border-left-color transparent
-    border-right-color #000
 
 nav a
     color #fff
@@ -52,74 +17,19 @@ nav a
 nav a:hover
     text-decoration none
 
-nav .progressbar
-    position relative
-    margin 5px 10px 0 0
-    height 16px
-    line-height 16px
-    border 1px solid #000
-    background #070
+nav.user
+    top 0px
 
-nav .progressbar i
-    display block
-    position absolute
-    height 16px
-    width 0%
-    background #4a4
+nav.info
+    bottom 0px
+    width 152px
 
-nav .progressbar span
-    display block
-    position absolute
-    height 16px
-    width 100%
-
-nav section
-    position relative
-    display block
-    margin-left 10px
-    height 100%
-    font-size 10px
-    text-align center
-
-nav header
-    margin-right 10px
-    padding-top 10px
-    font-size 10px
-    color #eee
-
-nav header h1
-    display inline-block
-    margin 3px 0
-    font-size 26px
-    font-weight bold
-    color #fff
-
-nav header h2
-    line-height 16px
-    font-size 11px
-    letter-spacing 1px
-    font-weight normal
-    color #eee
-
-nav footer
-    position absolute
-    display block
-    bottom 0
-    padding-bottom 10px
-    width 100%
-
-nav footer .stayTuned
-    margin 0 10px 10px 0;
-    line-height 14px
-    font-size 11px
-
-nav .statistics
-    clear both
-    display none
-    line-height 14px
+nav .leadersboard
+    margin 7px 0 5px 0
+    padding 0 5px 5px 5px
+    border-bottom 1px dotted #fff
     text-align left
 
-nav .statistics li
 nav .leadersboard em
     display block
     padding 0
@@ -127,53 +37,31 @@ nav .leadersboard em
     line-height 13px
     font-style normal
 
-nav .statistics span
-    float right
-    overflow hidden
-    display inline-block
-    padding-left 5px
-    text-align right
-    width 35px
-
-nav ul, nav .borders
-    margin 5px 10px 0 0
-    padding 5px
-    border 1px solid #999
-    background rgba(0,0,0,0.5)
-    border-radius 3px
-
-nav .leadersboard .borders
-    padding-left 0
-    padding-right 0
-
 nav .leadersboard .viewport
+    margin-top 5px
     height 14px
+    width 140px
 
 nav .leadersboard .viewport em
     width 140px
 
+nav .leadersboard .viewport em.empty
+    text-align center
+
 nav .leadersboard .scrolla
     position absolute
-    right -1px
-    width 4px
+    right 0px
+    width 2px
     background rgba(255,255,255,0.5)
     border-radius 3px
-    box-shadow:0 0 2px #000;
-
-nav .leadersboard
-    display none
-    margin-top 7px
-    text-align left
+    box-shadow 0 0 2px #000;
 
 nav .leadersboard .button
     float right
+    margin-top -1px
     padding 0 6px
-    margin-right 10px
     line-height 10px
     height 12px
-
-nav .leadersboard .empty
-    text-align center
 
 nav .leadersboard .status
     float left
@@ -206,36 +94,72 @@ nav .leadersboard .pts
     font-family Arial
     color #ddd
 
-nav .user
-    display none
-    margin 10px 10px 5px 0
-    padding-bottom 10px
+nav.user .left
+nav.user .right
+    float left
+    padding 5px
+    
+nav.user .right
+    border-left 1px dotted #fff
 
-nav .user .num
+nav.user .score
+    display block
+    
+nav.user .num
     margin 0 2px
     color #fff
-    font-size 20px
+    font-size 18px
     font-family georgia
     text-shadow 0 0 10px #fff, 0 0 5px #fff
 
-nav .user .name
-    margin 12px 0 7px 0
+nav.user .name
+    margin-bottom 2px
 
-nav .user .pts
+nav.user .pts
     color #ddd
 
-nav .user .auth
-nav .user .logout
+nav.user .auth
+nav.user .logout
     display none;
     text-decoration underline
     cursor pointer
 
-nav .user .auth:hover
-nav .user .logout:hover
+nav.user .auth:hover
+nav.user .logout:hover
     text-decoration none
 
 nav .openMenu
-    margin 10px 10px 0 0
+    margin 0 2px 5px 0
 
 nav .createPuzzle
-    margin 10px 10px 0 0
+    margin 0 0 5px 2px
+    vertical-gradient(rgb(235,235,0), rgb(255,255,255))
+    
+nav .createPuzzle:hover
+    vertical-gradient(rgb(235,235,100), rgb(255,255,255))
+    
+nav .createPuzzle:active
+    background rgb(235,235,150)
+
+nav.info .expcol
+    left -7px
+    top -7px
+
+nav.info .expcol
+    display none
+
+nav.info:hover .expcol
+    display block
+    
+nav .expcol em
+    display block
+    height 100%
+    width 100%
+    background-repeat no-repeat
+    background-position center
+
+nav.info .expcol em
+    background-image url('/img/corner_bottom_right.gif')
+
+nav.info.collapsed .expcol em
+    background-image url('/img/corner_top_left.gif')
