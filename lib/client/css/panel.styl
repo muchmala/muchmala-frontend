@@ -18,6 +18,7 @@ nav a:hover
     text-decoration none
 
 nav.user
+    height 38px
     top 0px
 
 nav.info
@@ -59,9 +60,6 @@ nav .leadersboard .scrolla
 nav .leadersboard .button
     float right
     margin-top -1px
-    padding 0 6px
-    line-height 10px
-    height 12px
 
 nav .leadersboard .status
     float left
@@ -94,16 +92,18 @@ nav .leadersboard .pts
     font-family Arial
     color #ddd
 
-nav.user .left
-nav.user .right
+nav.user .column
     float left
-    padding 5px
-    
-nav.user .right
+    padding 0 5px
+    height 100%
     border-left 1px dotted #fff
+    
+nav.user .first
+    border-left none
 
 nav.user .score
     display block
+    margin-top 5px
     
 nav.user .num
     margin 0 2px
@@ -113,6 +113,7 @@ nav.user .num
     text-shadow 0 0 10px #fff, 0 0 5px #fff
 
 nav.user .name
+    margin-top 5px
     margin-bottom 2px
 
 nav.user .pts
@@ -127,6 +128,18 @@ nav.user .logout
 nav.user .auth:hover
 nav.user .logout:hover
     text-decoration none
+    
+nav.user .about
+    padding 0
+    margin-top 8px
+    height 22px
+    width 22px
+    line-height 22px
+    color #fff
+    font-size 15px
+    font-weight bold
+    border-radius 11px
+    text-shadow 0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 1px #000
 
 nav .openMenu
     margin 0 2px 5px 0
@@ -151,6 +164,7 @@ nav.info .expcol
 nav.info:hover .expcol
     display block
     
+.dialog .close em
 nav .expcol em
     display block
     height 100%

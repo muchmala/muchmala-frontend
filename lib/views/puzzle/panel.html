@@ -1,13 +1,16 @@
 <nav class="user">
-    <div class="left">
+    <div class="column first">
         <span class="score">Score:</span>
         <span class="num">0</span>
         <span class="pts">pts.</span>
     </div>
-    <div class="right">
+    <div class="column">
         <span class="button name">anonymous</span><br/>
         <a href="/auth/logout" class="logout">Log out</a>
         <span class="auth">Sign Up / Log in</span>
+    </div>
+    <div class="column">
+        <span class="button about">?</span>
     </div>
 </nav>
 
@@ -16,10 +19,10 @@
     
     <div class="leadersboard">
         Connected: <span class="connected">0</span>
-        <div class="button">score</div>
+        <div class="button small">score</div>
         <div class="viewport"><div class="list"><em class="empty">Leadersboard is empty :(</em></div></div>
     </div>
 
-    <span class="button openMenu">Menu</span>
+    <span class="button openMenu">Top 20</span>
     <span class="button createPuzzle">Create Puzzle</span>
 </nav>
