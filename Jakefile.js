@@ -72,7 +72,7 @@ var monifiedStaticFiles = {
 };
 
 var inputFile = stylDir + 'styles.styl';
-var stylusUrl = 'lib/stylusUrl.js';
+var stylusUrl = __dirname + '/lib/stylusUrl.js';
 
 var configFiles = [cwd + 'Jakefile.js', cwd + 'config.js'];
 if (path.existsSync(cwd + 'config.local.js')) {
