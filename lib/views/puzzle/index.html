@@ -1,3 +1,7 @@
+<%- partial('title') %>
+<%- partial('panel') %>
+<%- partial('browser') %>
+
 <div id="display">
 <div id="viewport"><div class="puzzle">
     <div class="frame">
@@ -17,10 +21,7 @@
 <%- partial('dialogs/create') %>
 <%- partial('dialogs/signup') %>
 <%- partial('dialogs/forgot') %>
-<%- partial('dialogs/nopuzzles') %>
 <%- partial('dialogs/auth') %>
-<%- partial('panel') %>
-<%- partial('browser') %>
 
 <script>
     window.Puzz = {Utils: {}, Models: {}, Collections: {}, Helpers: {}, Views: {}};
@@ -65,6 +66,7 @@
 
     , '/js/views/puzzle.js'
     , '/js/views/piece.js'
+    , '/js/views/title.js'
     , '/js/views/viewport.js'
     , '/js/views/frame.js'
     , '/js/views/dialogs.js'
@@ -80,4 +82,18 @@
 <script src="<%=(config.staticUrl + src)%>"></script><%
     });
 } %>
+
+<!--
 <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<g:plusone size="medium"></g:plusone>
+<fb:like href="http://muchmala.com/" layout="button_count" show_faces="false"></fb:like>
+-->
