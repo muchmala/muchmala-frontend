@@ -40,7 +40,8 @@ input
     cursor pointer
     text-align center
     background #fff
-    border-radius 8px
+    border-radius 9px
+    font-family helvetica
     vertical-gradient(rgb(170,170,170), rgb(255,255,255))
     
 .button.highlight
@@ -69,7 +70,8 @@ input
     line-height 30px
     font-size 14px
     font-weight bold
-    border-radius 15px
+    border-radius 16px
+    font-family trebuchet
     vertical-gradient(rgb(235,235,0), rgb(255,255,255))
     
 .button.big:hover
@@ -229,31 +231,28 @@ input
     z-index 1002
     padding 20px
     color #000
-    background rgba(255,255,255,0.9)
+    background-color rgba(255,255,255,0.9)
     box-shadow: 0px 5px 80px #505050;
-    font-size 11px    
+    font-family trebuchet
+    font-size 11px
+    
+.dialog.loading
+    background-position 2px 2px
+    background-repeat no-repeat
 
 nav .expcol
 .dialog .close
     position absolute
     padding 0
-    width 14px
-    height 14px
-    line-height 12px
-    border-radius 3px
-    border 1px solid #000
+    width 18px
+    height 18px
     text-align center
+    border-radius 10px
     box-shadow none
-    cursor pointer
     
 .dialog .close
-    top -7px
-    right -7px
-    color #fff
-    vertical-gradient(rgb(50,50,50), rgb(180,180,180))
-    
-.dialog .close em
-    background-image url('/img/close.gif')
+    top -9px
+    right -9px
 
 #username
     display none
@@ -275,21 +274,6 @@ nav .expcol
     width 250px
     line-height 14px
     text-align justify
-
-#noPuzzles
-    display none
-    margin 30px 0
-    width 440px
-    line-height 20px
-    text-align center
-    font-family arial
-
-#noPuzzles strong
-    font-size 14px
-
-#noPuzzles .button.big
-    margin-top 10px
-    text-decoration none
     
 #title
     position absolute
@@ -301,11 +285,12 @@ nav .expcol
     height 300px
     width 400px
     color #000
+    font-family trebuchet
+    text-align center
+    font-size 11px
     background rgba(255,255,255,0.8)
     background -webkit-radial-gradient(white, rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0.1))
     background -moz-radial-gradient(white, rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0.1))
-    text-align center
-    font-size 11px
     
 #title h1
     margin-top 90px
@@ -326,6 +311,7 @@ nav .expcol
 #title .progressbar
     position relative
     cursor default
+    border-radius 0px
     vertical-gradient(rgb(220,220,220), rgb(255,255,255))
     
 #title .progressbar:hover
@@ -340,8 +326,7 @@ nav .expcol
     z-index 1
     height 100%
     width 0%
-    border-radius 15px
-    vertical-gradient(rgb(235,235,0), rgb(255,255,255))
+    vertical-gradient(rgb(100,220,100), rgb(255,255,255))
     
 #title .progressbar span
     position relative
