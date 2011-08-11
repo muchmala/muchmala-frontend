@@ -158,16 +158,14 @@ input
     text-align center
     text-shadow 0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 1px #000
 
-#viewport .puzzle
-    z-index 0
-
-#viewport .puzzle.active
+#viewport .viewportContent.active
     cursor pointer
 
-#viewport .puzzle .frame
+#viewport .frame
     z-index 2
+    top 0
+    left 0
     
-#viewport .puzzle
 #viewport .frame
 #viewport .frame .tile
 #viewport .frame .corner
@@ -204,11 +202,11 @@ input
 #viewport .frame .tile.bottom
     bottom 0
     
-#viewport .puzzle .tileBorder
+#viewport .tileBorder
     position absolute
     z-index 0
     
-#viewport .puzzle .tileBorder.top
+#viewport .tileBorder.top
     z-index 1
 
 .overlay
