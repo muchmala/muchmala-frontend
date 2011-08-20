@@ -29,6 +29,14 @@ if (process.env.MUCHMALA_FE_IO_SERVERS) {
     }];
 }
 
+config.io = {
+    host: process.env.MUCHMALA_IO_HOST || "io.muchmala.dev",
+    port: 80
+};
+
+config.io.url = process.env.MUCHMALA_IO_URL ||
+    "http://" + config.io.host + ((config.io.port != 80) ? ":" + config.io.port : "");
+    
 config.static = {
     host: process.env.MUCHMALA_FE_STATIC_HOST || "static.muchmala.dev",
     port: process.env.MUCHMALA_FE_STATIC_PORT || 8080,

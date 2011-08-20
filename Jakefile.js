@@ -57,7 +57,6 @@ var uncompressedJsFiles = [
 ];
 
 var compressedJsFiles = [
-    jsDir + 'socket.io/socket.io.min.js',
     jsDir + 'jquery/jquery.min.js',
     jsDir + 'jquery/jquery-ui.js',
     jsDir + 'third/underscore.js'

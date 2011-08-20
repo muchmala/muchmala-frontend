@@ -24,12 +24,10 @@
 <script>
     window.Puzz = {Utils: {}, Models: {}, Collections: {}, Helpers: {}, Views: {}};
     window.STATIC_HOST = '<%=config.staticUrl%>';
-    window.SOCKET_SERVERS = <%-socketIoServers%>;
-    window.IO_HOST = window.SOCKET_SERVERS[0].host;
-    window.IO_PORT = window.SOCKET_SERVERS[0].port;
+    window.IO_HOST = '<%=config.ioHost%>';
 </script>
 
-<script src="http://io.muchmala.dev/socket.io/socket.io.js"></script>
+<script src="<%=config.ioUrl%>/socket.io/socket.io.js"></script>
 <% if (config.minified) { %>
 <script src="<%=config.staticUrl%>/<%=config.version%>/minified.js"></script>
 <% } else {
