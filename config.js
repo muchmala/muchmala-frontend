@@ -10,13 +10,9 @@ config.http = {
 
 config.http.url = process.env.MUCHMALA_FE_URL || 'http://muchmala.dev';
 
-config.io = {
-    host: process.env.MUCHMALA_IO_HOST || "io.muchmala.dev",
-    port: process.env.MUCHMALA_IO_PORT || 80
-};
+config.io = {};
+config.io.url = "http://io.muchmala.dev";
 
-config.io.url = "http://" + config.io.host + ((config.io.port != 80) ? ":" + config.io.port : "");
-    
 config.static = {
     host: process.env.MUCHMALA_FE_STATIC_HOST || "static.muchmala.dev",
     port: process.env.MUCHMALA_FE_STATIC_PORT || 8080,
