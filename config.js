@@ -7,35 +7,15 @@ config.http = {
     host: process.env.MUCHMALA_FE_HTTP_HOST || '0.0.0.0',
     port: process.env.MUCHMALA_FE_HTTP_PORT || 8000
 };
-config.http.url = process.env.MUCHMALA_FE_URL || 'http://muchmala.dev';
 
-if (process.env.MUCHMALA_FE_IO_SERVERS) {
-    config.ioServers = process.env.MUCHMALA_FE_IO_SERVERS.split(',');
-    for (var k in config.ioServers) {
-        var v = config.ioServers[k];
-        var parts = v.split(':');
-        if (parts.length === 1) {
-            parts[1] = 80;
-        }
-        config.ioServers[k] = {
-            externalHost: parts[0],
-            externalPort: parts[1]
-        };
-    }
-} else {
-    config.ioServers = [{
-        externalHost: 'io.muchmala.dev',
-        externalPort: 80
-    }];
-}
+config.http.url = process.env.MUCHMALA_FE_URL || 'http://muchmala.dev';
 
 config.io = {
     host: process.env.MUCHMALA_IO_HOST || "io.muchmala.dev",
-    port: 80
+    port: process.env.MUCHMALA_IO_PORT || 80
 };
 
-config.io.url = process.env.MUCHMALA_IO_URL ||
-    "http://" + config.io.host + ((config.io.port != 80) ? ":" + config.io.port : "");
+config.io.url = "http://" + config.io.host + ((config.io.port != 80) ? ":" + config.io.port : "");
     
 config.static = {
     host: process.env.MUCHMALA_FE_STATIC_HOST || "static.muchmala.dev",
@@ -47,8 +27,8 @@ config.static = {
 
     minified: process.env.MUCHMALA_FE_STATIC_MINIFIED || false
 };
-config.static.url = process.env.MUCHMALA_FE_STATIC_URL ||
-    "http://" + config.static.host + ((config.static.port != 80) ? ":" + config.static.port : "");
+
+config.static.url = "http://" + config.static.host + ((config.static.port != 80) ? ":" + config.static.port : "");
 
 config.storage = {
     type: process.env.MUCHMALA_STORAGE_TYPE || 'file',

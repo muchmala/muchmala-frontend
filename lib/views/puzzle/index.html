@@ -27,7 +27,7 @@
     window.IO_HOST = '<%=config.ioHost%>';
 </script>
 
-<script src="<%=config.ioUrl%>/socket.io/socket.io.js"></script>
+<script src="http://<%=config.ioHost%>/socket.io/socket.io.js"></script>
 <% if (config.minified) { %>
 <script src="<%=config.staticUrl%>/<%=config.version%>/minified.js"></script>
 <% } else {
