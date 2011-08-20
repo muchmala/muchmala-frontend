@@ -29,12 +29,12 @@
     window.IO_PORT = window.SOCKET_SERVERS[0].port;
 </script>
 
+<script src="http://io.muchmala.dev/socket.io/socket.io.js"></script>
 <% if (config.minified) { %>
 <script src="<%=config.staticUrl%>/<%=config.version%>/minified.js"></script>
 <% } else {
-    [ '/js/socket.io/socket.io.js'
-
-    , '/js/jquery/jquery.min.js'
+    
+    [ '/js/jquery/jquery.min.js'
     , '/js/jquery/jquery-ui.js'
     , '/js/jquery/jquery.cookie.js'
     , '/js/jquery/jquery.scraggable/jquery.scraggable.js'
