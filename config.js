@@ -11,7 +11,7 @@ config.http = {
 config.http.url = process.env.MUCHMALA_FE_URL || 'http://muchmala.dev';
 
 config.io = {};
-config.io.url = "http://io.muchmala.dev";
+config.io.url = process.env.MUCHMALA_IO_URL || 'http://io.muchmala.dev';
 
 config.static = {
     host: process.env.MUCHMALA_FE_STATIC_HOST || "static.muchmala.dev",
