@@ -24,14 +24,14 @@
 <script>
     window.Puzz = {Utils: {}, Models: {}, Collections: {}, Helpers: {}, Views: {}};
     window.STATIC_HOST = '<%=config.staticUrl%>';
-    window.IO_HOST = '<%=config.ioHost%>';
+    window.IO_URL = '<%=config.ioUrl%>';
 </script>
 
-<script src="http://<%=config.ioHost%>/socket.io/socket.io.js"></script>
+<script src="<%=config.ioUrl%>/socket.io/socket.io.js"></script>
 <% if (config.minified) { %>
 <script src="<%=config.staticUrl%>/<%=config.version%>/minified.js"></script>
 <% } else {
-    
+
     [ '/js/jquery/jquery.min.js'
     , '/js/jquery/jquery-ui.js'
     , '/js/jquery/jquery.cookie.js'
@@ -43,10 +43,10 @@
     , '/js/third/aim.js'
     , '/js/third/flow.js'
     , '/js/third/underscore.js'
-    
+
     , '/js/backbone/backbone.js'
     , '/js/backbone/backbone.io.js'
-    
+
     , '/js/messages.js'
     , '/js/server.js'
 
@@ -56,7 +56,7 @@
     , '/js/collections/pieces.js'
     , '/js/collections/leaders.js'
     , '/js/collections/twenty.js'
-    
+
     , '/js/helpers/statics.js'
     , '/js/helpers/loader.js'
 
@@ -67,7 +67,7 @@
     , '/js/views/frame.js'
     , '/js/views/dialogs.js'
     , '/js/views/panels.js'
-    
+
     , '/js/views/precious/blinker.js'
     , '/js/views/precious/scoreBlower.js'
     , '/js/views/precious/lockingTooltips.js'
