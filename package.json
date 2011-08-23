@@ -11,7 +11,8 @@
   , "url" : "https://github.com/muchmala/muchmala-frontend.git"
   }
 , "dependencies" :
-  { "opts" : "~1"
+  { "cluster" : "~0"
+  , "opts" : "~1"
   , "ejs" : "~0"
   , "flow" : "~0"
   , "async" : "~0"
